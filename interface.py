@@ -11,7 +11,8 @@ class Interfaces:
                 break
         print('\n\n')
         return option
-        
+
+
     def main_menu(self):
         while True:
             print('===== Main Menu =====')
@@ -28,9 +29,10 @@ class Interfaces:
                 self.view_menu()
             elif option == '2':
                 self.modify_menu()
-            
+
+
     def view_menu(self):
-        self.menu.show_menu()
+        self.menu.show()
             
     def modify_menu(self):
         print('===== Modify Menu =====')
@@ -49,6 +51,7 @@ class Interfaces:
         else:
             return 0
         
+        
     def modify_add(self):
         print('Adding item to menu')
         while True:
@@ -65,9 +68,9 @@ class Interfaces:
             else:
                 break
 
-        self.menu.add_item(name, price)
+        self.menu.add(name, price)
         
     def modify_delete(self):
         print('Deleting item to menu')
         name = input('Enter item name:')
-        self.menu.delete_item(name)
+        self.menu.delete(name)

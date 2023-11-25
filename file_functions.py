@@ -16,7 +16,7 @@ class File_functions:
                         except ValueError:
                             continue
                         
-                        menu.add_item(name, price)
+                        menu.add(name, price)
                         
             print('\033c', end='')
             print(f'Successfully added item(s) from {file_path} file.\n\n')

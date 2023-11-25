@@ -4,7 +4,7 @@ class Menu:
     def __init__(self):
         self.items = []
         
-    def show_menu(self):
+    def show(self):
         if not self.items:
             print('Menu is currently empty.\n\n')
         else:
@@ -12,14 +12,14 @@ class Menu:
                 print(f'{index+1}. {item.name} - ${item.price}')
             print('\n')
         
-    def add_item(self, name, price):
+    def add(self, name, price):
         name = name.title()
         price = '{:.2f}'.format(float(price))
         new_item = Item(name, price)
         self.items.append(new_item)
         print(f'\nItem {name} has been added\n\n')
         
-    def delete_item(self, name):
+    def delete(self, name):
         for item in self.items:
             if item.name == name.title():
                 self.items.remove(item)
