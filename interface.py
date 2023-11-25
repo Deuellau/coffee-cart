@@ -1,4 +1,4 @@
-class interfaces:
+class Interfaces:
     def __init__(self, menu):
         self.menu = menu
         
@@ -9,7 +9,7 @@ class interfaces:
                 print('\nInvalid Input')
             else:
                 break
-        print('\n')
+        print('\n\n')
         return option
         
     def main_menu(self):
