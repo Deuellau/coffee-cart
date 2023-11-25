@@ -26,5 +26,5 @@ class Menu:
                 print(f'\nItem {item.name} successfully deleted.\n\n')
                 return 0
         
-        print(f'\nItem {item.name} not found.\n\n')
+        print(f'\nItem "{name}" not found.\n\n')
         
