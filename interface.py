@@ -1,6 +1,7 @@
 class Interfaces:
-    def __init__(self, menu):
+    def __init__(self, menu, files):
         self.menu = menu
+        self.files = files
         
     def option_handler(self, valid_options):
         while True:
@@ -24,7 +25,7 @@ class Interfaces:
             option = self.option_handler(options_lst)
 
             if option.lower() == 'q':
-                return 0
+                break
             elif option == '1':
                 self.view_menu()
             elif option == '2':
@@ -35,21 +36,23 @@ class Interfaces:
         self.menu.show()
             
     def modify_menu(self):
-        print('===== Modify Menu =====')
-        print('\nModify options:')
-        print('1. Add item')
-        print('2. Edit item')
-        print('3. Delete item')
-        print('4. Back to main menu')
-        options_lst = ['1', '2', '3', '4']
-        option = self.option_handler(options_lst)
+        while True:
+            print('===== Modify Menu =====')
+            print('\nModify options:')
+            print('1. Add item')
+            print('2. Edit item')
+            print('3. Delete item')
+            print('4. Back to main menu')
+            options_lst = ['1', '2', '3', '4']
+            option = self.option_handler(options_lst)
 
-        if option == '1':
-            self.modify_add()
-        elif option == '3':
-            self.modify_delete()
-        else:
-            return 0
+            if option == '1':
+                self.modify_add()
+            elif option == '3':
+                self.modify_delete()
+            else:
+                self.modify_save_option()
+                break
         
         
     def modify_add(self):
@@ -74,3 +77,11 @@ class Interfaces:
         print('Deleting item to menu')
         name = input('Enter item name:')
         self.menu.delete(name)
+        
+    def modify_save_option(self):
+        print('Do you want to save changes made to menu?')
+        print('\nPress Y to save and exit.')
+        print('Press any key to exit without saving.')
+        option = input("")
+        if option.lower() == 'y':
+            self.files.menu_to_csv('menu.csv', self.menu)
