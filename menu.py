@@ -23,7 +23,7 @@ class Menu:
         for item in self.items:
             if item.name == name.title():
                 self.items.remove(item)
-                print(f'\nItem {item.name} successfully deleted.\n\n')
+                print(f'\nItem {item.name} deleted successfully.\n\n')
                 return 0
         
         print(f'\nItem "{name}" not found.\n\n')
