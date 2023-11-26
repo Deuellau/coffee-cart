@@ -87,7 +87,7 @@ class Interfaces:
         self.modified = True
         
     def modify_save_option(self):
-        print('Do you want to save changes made to menu?') #TODO: check if menu is edited
+        print('Do you want to save changes made to menu?')
         print('\nPress Y to save and exit.')
         print('Press any key to exit without saving.')
         option = input("")
