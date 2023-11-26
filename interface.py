@@ -2,6 +2,7 @@ class Interfaces:
     def __init__(self, menu, files):
         self.menu = menu
         self.files = files
+        self.modified = False
         
     def option_handler(self, valid_options):
         while True:
@@ -16,6 +17,7 @@ class Interfaces:
 
     def main_menu(self):
         while True:
+            self.modified = False
             print('===== Main Menu =====')
             print("\nPlease select an option:")
             print("1. View menu")
@@ -30,6 +32,7 @@ class Interfaces:
                 self.view_menu()
             elif option == '2':
                 self.modify_menu()
+                
 
 
     def view_menu(self):
@@ -51,16 +54,17 @@ class Interfaces:
             elif option == '3':
                 self.modify_delete()
             else:
-                self.modify_save_option()
+                if self.modified:
+                    self.modify_save_option()
                 break
         
         
     def modify_add(self):
-        print('Adding item to menu')
+        print('Adding item to menu.')
         while True:
             name = input('Enter item name: ')
             if name.isdigit():
-                print('Item name invalid')
+                print('Item name invalid.')
             else:
                 break
             
@@ -72,14 +76,18 @@ class Interfaces:
                 break
 
         self.menu.add(name, price)
+        self.modified = True
         
     def modify_delete(self):
-        print('Deleting item to menu')
-        name = input('Enter item name:')
+        print('Deleting item from menu.')
+        print('\nMenu items:')
+        self.menu.show()
+        name = input('Enter item name to delete: ')
         self.menu.delete(name)
+        self.modified = True
         
     def modify_save_option(self):
-        print('Do you want to save changes made to menu?')
+        print('Do you want to save changes made to menu?') #TODO: check if menu is edited
         print('\nPress Y to save and exit.')
         print('Press any key to exit without saving.')
         option = input("")

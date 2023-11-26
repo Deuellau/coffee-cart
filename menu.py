@@ -28,3 +28,7 @@ class Menu:
         
         print(f'\nItem "{name}" not found.\n\n')
         
+    def __eq__(self, other):
+        print("__eq__ method is called")
+        return self.items == other.items
+        
