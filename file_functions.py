@@ -33,7 +33,7 @@ class File_functions:
                 csv_writer = csv.writer(file)
                 for item in menu.items:
                     csv_writer.writerow([item.name, item.price])
-            print('Menu saved successfully.\n\n')
+            print('\nMenu saved successfully.\n\n')
         except FileNotFoundError:
             print('Error: The specified file was not found.')
         except Exception as e:
