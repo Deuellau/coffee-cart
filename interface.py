@@ -11,7 +11,7 @@ class Interfaces:
                 print('\nInvalid Input')
             else:
                 break
-        print('\n\n')
+        print('\033c', end='')
         return option
 
 
@@ -22,7 +22,7 @@ class Interfaces:
             print("\nPlease select an option:")
             print("1. View menu")
             print("2. Modify menu")
-            print('Type Q to quit')
+            print('\nType Q to quit')
             options_lst = ['1', '2', 'q']
             option = self.option_handler(options_lst)
 
@@ -36,6 +36,7 @@ class Interfaces:
 
 
     def view_menu(self):
+        print('~~~~~ Menu ~~~~~')
         self.menu.show()
             
     def modify_menu(self):
@@ -45,15 +46,17 @@ class Interfaces:
             print('1. Add item')
             print('2. Edit item')
             print('3. Delete item')
-            print('4. Back to main menu')
-            options_lst = ['1', '2', '3', '4']
+            print('\nType Q to return to main menu')
+            options_lst = ['1', '2', '3', 'q']
             option = self.option_handler(options_lst)
 
             if option == '1':
                 self.modify_add()
+            elif option == '2':
+                self.modify_edit()
             elif option == '3':
                 self.modify_delete()
-            else:
+            elif option.lower() == 'q':
                 if self.modified:
                     self.modify_save_option()
                 break
@@ -61,8 +64,10 @@ class Interfaces:
         
     def modify_add(self):
         print('Adding item to menu.')
+        print('\nMenu items:')
+        self.menu.show()
         while True:
-            name = input('Enter item name: ')
+            name = input('\nEnter item name: ')
             if name.isdigit():
                 print('Item name invalid.')
             else:
@@ -75,8 +80,22 @@ class Interfaces:
             else:
                 break
 
-        self.menu.add(name, price)
+        self.menu.add(name, price, False)
         self.modified = True
+        
+    def modify_edit(self):
+        print('Editing item from menu.')
+        print('\nMenu items:')
+        self.menu.show()
+        name = input('Enter item name to edit: ')
+        if self.menu.in_menu(name):
+            new_name = input('Enter new item name: ')
+            new_price = input('Enter new item price: $')
+            self.menu.edit(name, new_name, new_price)
+            self.modified = True
+        else:
+            print('\033c', end='')
+            print(f"Item '{name}' not found.\n\n")
         
     def modify_delete(self):
         print('Deleting item from menu.')
@@ -93,3 +112,4 @@ class Interfaces:
         option = input("")
         if option.lower() == 'y':
             self.files.menu_to_csv('menu.csv', self.menu)
+        print('\n')

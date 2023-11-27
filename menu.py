@@ -5,45 +5,58 @@ class Menu:
         self.items = []
         self.name_set = set()
         
+    def in_menu(self, name):
+        if name in self.name_set:
+            return True
+        else:
+            return False
+        
     def show(self):
         if not self.items:
             print('Menu is currently empty.\n\n')
         else:
-            print('~~~~~ Menu ~~~~~')
             for index, item in enumerate(self.items):
                 print(f'{index+1}. {item.name} - ${item.price}')
             print('\n')
         
-    def add(self, name, price):
+    def add(self, name, price, csv): 
         name = name.title()
-        if name not in self.name_set:
+        if not self.in_menu(name):
             self.name_set.add(name)
             price = '{:.2f}'.format(float(price))
             new_item = Item(name, price)
             self.items.append(new_item)
-            print(f'\nItem {name} has been added\n\n')
+            if csv:
+                return False
+            else:
+                print('\033c', end='')
+                print(f'Item {name} has been added\n\n')
         else:
-            print(f"\nError: Duplicate item '{name}' in menu.\n\n")
-            
-    def add_csv(self, name, price):
-        name = name.title()
-        if name not in self.name_set:
-            self.name_set.add(name)
-            price = '{:.2f}'.format(float(price))
-            new_item = Item(name, price)
-            self.items.append(new_item)
-            return False
-        else:
-            return True
+            if csv:
+                return True
+            else:
+                print('\033c', end='')
+                print(f"\nError: Duplicate item '{name}' in menu.\n\n")
+                
+    def edit(self, name, new_name, price):
+        for item in self.items:
+            if item.name == name.title():
+                item.name = new_name
+                item.price = '{:.2f}'.format(float(price))
+                self.name_set.remove(name)
+                self.name_set.add(new_name)
+                print('\033c', end='')
+                print(f'Item {new_name} edited successfully.\n\n')
         
     def delete(self, name):
         for item in self.items:
             if item.name == name.title():
                 self.items.remove(item)
                 self.name_set.remove(item.name)
-                print(f'\nItem {item.name} deleted successfully.\n\n')
+                print('\033c', end='')
+                print(f'Item {item.name} deleted successfully.\n\n')
                 return 0
-        
+        print('\033c', end='')
         print(f'\nItem "{name}" not found.\n\n')
         
     def __eq__(self, other):
