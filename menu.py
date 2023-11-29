@@ -38,15 +38,28 @@ class Menu:
                 print('\033c', end='')
                 print(f"\nError: Duplicate item '{name}' in menu.\n\n")
                 
-    def edit(self, name, new_name, price):
+    def edit(self, name, new_name, new_price):
         for item in self.items:
             if item.name == name.title():
-                item.name = new_name
-                item.price = '{:.2f}'.format(float(price))
-                self.name_set.remove(name)
-                self.name_set.add(new_name)
+                if new_name == '':
+                    pass
+                else:
+                    item.name = new_name 
+                    self.name_set.remove(name)
+                    self.name_set.add(new_name)
+                    
+                if new_price == '':
+                    pass
+                else:
+                    item.price = '{:.2f}'.format(float(new_price))
+                    
                 print('\033c', end='')
-                print(f'Item {new_name} edited successfully.\n\n')
+                if new_name == '' and new_price == '':
+                    print(f'No items edited.\n\n')
+                elif new_name == '':
+                    print(f'Item {name} edited successfully.\n\n')
+                else:
+                    print(f'Item {new_name} edited successfully.\n\n')
         
     def delete(self, name):
         for item in self.items:
