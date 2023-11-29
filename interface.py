@@ -32,14 +32,23 @@ class Interfaces:
                 self.view_menu()
             elif option == '2':
                 self.modify_menu()
-                
-
 
     def view_menu(self):
         print('~~~~~ Menu ~~~~~')
         self.menu.show()
             
     def modify_menu(self):
+        while True:
+            password = input("Enter password: ")
+            if password == '12345':
+                print('\033c', end='')
+                break
+            elif password == '':
+                print('\033c', end='')
+                return
+            else:
+                print('Invalid password\n')
+        
         while True:
             print('===== Modify Menu =====')
             print('\nModify options:')
